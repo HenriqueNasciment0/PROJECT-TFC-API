@@ -5,7 +5,7 @@ const middlewareError = (error: CustomError, _req: Request, res: Response, _next
   if (error.status) {
     return res.status(error.status).json({ message: error.message });
   }
-  res.status(500).json({ message: error.message }); //
+  res.status(500).json({ message: error.message }); // erro padrão da aplicação.
 };
 
 export default middlewareError;

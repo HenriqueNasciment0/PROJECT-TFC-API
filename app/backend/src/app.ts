@@ -1,5 +1,4 @@
 import * as express from 'express';
-import verifyJWT from './auth/JWTVerify';
 import loginRouter from './routes/LoginRoute';
 import middlewareError from './utils/middlewareError';
 
