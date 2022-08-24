@@ -12,6 +12,7 @@ module.exports = {
       homeTeam: {
         type: DataTypes.INTEGER,
         field: 'home_team',
+        foreignKey: true,
         references: { model: 'teams', key: 'id' },
         onUpdate: 'CASCADE',
       },
@@ -22,6 +23,7 @@ module.exports = {
       awayTeam: {
         type: DataTypes.INTEGER,
         field: 'away_team',
+        foreignKey: true,
         references: { model: 'teams', key: 'id' },
         onUpdate: 'CASCADE',
       },
