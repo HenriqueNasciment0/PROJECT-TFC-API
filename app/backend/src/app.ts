@@ -27,11 +27,11 @@ class App {
     this.app.use(express.json());
     this.app.use(accessControl);
 
+    this.app.use(loginRouter);
+
     this.app.use(teamsRouter);
 
     this.app.use(matchesRoute);
-
-    this.app.use(loginRouter);
 
     this.app.use(middlewareError);
   }
