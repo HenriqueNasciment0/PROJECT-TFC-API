@@ -3,12 +3,12 @@ import db from '.';
 import Teams from './team';
 
 class Matches extends Model {
-  id: number;
-  homeTeam: number;
-  homeTeamGoals: number;
-  awayTeam: number;
-  awayTeamGoals: number;
-  inProgress: number;
+  id!: number;
+  homeTeam!: number;
+  homeTeamGoals!: number;
+  awayTeam!: number;
+  awayTeamGoals!: number;
+  inProgress!: number;
 }
 
 Matches.init({
