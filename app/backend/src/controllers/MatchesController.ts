@@ -10,4 +10,14 @@ export default class MatchesController {
       next(error);
     }
   }
+
+  static async newMatch(req: Request, res: Response, next: NextFunction) {
+    try {
+      const data = req.body;
+      const matchInProgress = await MatchesService.create(data);
+      return res.status(201).json(matchInProgress);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
