@@ -1,6 +1,7 @@
 import Teams from '../database/models/team';
 import Matches from '../database/models/match';
 import { IMatch } from '../interfaces/IMatch';
+import CustomError from '../utils/CustomError';
 
 export default class MatchesService {
   static async getAll(): Promise<Matches[]> {
@@ -15,6 +16,10 @@ export default class MatchesService {
 
   static async create(match: IMatch) {
     const newMatch = await Matches.create({ ...match, inProgress: true });
+
+    if (match.homeTeam === match.awayTeam) {
+      throw new CustomError(401, 'It is not possible to create a match with two equal teams');
+    }
 
     return newMatch;
   }
