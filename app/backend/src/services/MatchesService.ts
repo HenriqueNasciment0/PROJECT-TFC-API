@@ -18,4 +18,10 @@ export default class MatchesService {
 
     return newMatch;
   }
+
+  static async patchInProgressFalse(id: string) {
+    const match = await Matches.update({ inProgress: false }, { where: { id } });
+
+    return match;
+  }
 }
