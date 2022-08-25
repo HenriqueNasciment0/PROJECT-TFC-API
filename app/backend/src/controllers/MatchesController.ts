@@ -35,4 +35,17 @@ export default class MatchesController {
       next(error);
     }
   }
+
+  static async patchInProgressGoals(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const data = req.body;
+
+      await MatchesService.patchInProgressGoals(id, data);
+
+      return res.status(200).json({ message: 'Goal refreshed' });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

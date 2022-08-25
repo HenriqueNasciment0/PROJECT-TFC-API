@@ -2,6 +2,7 @@ import Teams from '../database/models/team';
 import Matches from '../database/models/match';
 import { IMatch } from '../interfaces/IMatch';
 import CustomError from '../utils/CustomError';
+import { IGoals } from '../interfaces/IGoals';
 
 export default class MatchesService {
   static async getAll(): Promise<Matches[]> {
@@ -17,8 +18,18 @@ export default class MatchesService {
   static async create(match: IMatch) {
     const newMatch = await Matches.create({ ...match, inProgress: true });
 
+    // const homeTeam = await Teams.findOne({ where: { id: match.homeTeam } });
+    // const awayTeam = await Teams.findOne({ where: { id: match.awayTeam } });
+
     if (match.homeTeam === match.awayTeam) {
       throw new CustomError(401, 'It is not possible to create a match with two equal teams');
+    }
+
+    const objIDS = await Teams.findAll();
+    const ids = objIDS.map((team) => team.id);
+
+    if (!(ids.includes(match.homeTeam)) || !(ids.includes(match.awayTeam))) {
+      throw new CustomError(404, 'There is no team with such id!');
     }
 
     return newMatch;
@@ -28,5 +39,13 @@ export default class MatchesService {
     const match = await Matches.update({ inProgress: false }, { where: { id } });
 
     return match;
+  }
+
+  static async patchInProgressGoals(id: string, upGoals: IGoals) {
+    const refreshGoals = await Matches
+      .update({ homeTeamGoals: upGoals.homeTeamGoals,
+        awayTeamGoals: upGoals.awayTeamGoals }, { where: { id } });
+
+    return refreshGoals;
   }
 }

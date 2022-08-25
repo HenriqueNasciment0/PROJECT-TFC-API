@@ -9,4 +9,6 @@ matchesRoute.post('/matches', MatchesController.create);
 
 matchesRoute.patch('/matches/:id/finish', MatchesController.patchInProgressFalse);
 
+matchesRoute.patch('/matches/:id', MatchesController.patchInProgressGoals);
+
 export default matchesRoute;
