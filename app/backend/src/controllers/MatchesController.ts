@@ -2,6 +2,7 @@ import { Response, Request, NextFunction } from 'express';
 import MatchesService from '../services/MatchesService';
 
 export default class MatchesController {
+  //--------------------------------------------------------------------------
   static async getAll(_req: Request, res: Response, next: NextFunction) {
     try {
       const matches = await MatchesService.getAll();
@@ -10,6 +11,8 @@ export default class MatchesController {
       next(error);
     }
   }
+
+  //--------------------------------------------------------------------------
 
   static async create(req: Request, res: Response, next: NextFunction) {
     try {
@@ -20,6 +23,8 @@ export default class MatchesController {
       next(error);
     }
   }
+
+  //--------------------------------------------------------------------------
 
   static async patchInProgressFalse(
     req: Request,
@@ -35,6 +40,8 @@ export default class MatchesController {
       next(error);
     }
   }
+
+  //--------------------------------------------------------------------------
 
   static async patchInProgressGoals(req: Request, res: Response, next: NextFunction) {
     try {
