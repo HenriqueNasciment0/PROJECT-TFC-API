@@ -5,13 +5,15 @@ import { IUser } from '../interfaces/IUser';
 
 dotenv.config();
 
-function verifyJWT(req: Request, res: Response, next: NextFunction) {
-  const { authorization } = req.headers;
-  if (!authorization) return res.status(401).json({ auth: false, message: 'No token provided.' });
+const { JWT_SECRET } = process.env;
 
-  const tokenDecoded = jwt
-    .verify(authorization, process.env.JWT_SECRET as string) as { data: IUser }; // olha o log e você verá a mágica
-  console.log('TOKENDECODED:', tokenDecoded);
+function verifyJWT(req: Request, res: Response, next: NextFunction) {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).json({ message: 'Token must be a valid token' });
+  }
+  const tokenDecoded = jwt.verify(token, JWT_SECRET as string) as { data: IUser }; // olha o log e você verá a mágica
 
   res.status(200).json({ role: tokenDecoded.data.role });
 
