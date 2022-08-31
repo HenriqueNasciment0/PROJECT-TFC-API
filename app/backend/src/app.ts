@@ -1,4 +1,5 @@
 import * as express from 'express';
+import LBRouter from './routes/LeaderBoardRoute';
 import loginRouter from './routes/LoginRoute';
 import matchesRoute from './routes/MathesRoute';
 import teamsRouter from './routes/TeamsRoute';
@@ -32,6 +33,8 @@ class App {
     this.app.use(teamsRouter);
 
     this.app.use(matchesRoute);
+
+    this.app.use(LBRouter);
 
     this.app.use(middlewareError);
   }
